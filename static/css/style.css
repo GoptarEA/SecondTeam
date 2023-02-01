@@ -1,0 +1,407 @@
+::-webkit-scrollbar {
+    width: 0;
+  }
+
+input::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.589); }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%; 
+  background-color: grey;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+}
+
+.win {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes del-menu {
+    from {opacity: 1; }
+    to {opacity: 1;}
+}
+
+@keyframes add-menu {
+    from {opacity: calc(var(opacity)); }
+    to {opacity: 1;}
+}
+
+.main_menu {
+    position: absolute;
+    margin: 20px auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+    z-index: 2;
+    width: 1440px;
+    height: 80px;
+    /* background-color: #b9b8bdee; */
+    background: rgb(14,7,133);
+    background: linear-gradient(90deg, rgba(14,7,133,0.9444152661064426) 2%,
+     rgba(147,20,39,0.9192051820728291) 40%, rgba(0,146,255,0.8575805322128851) 98%);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 20px;
+    cursor: default;
+
+    animation: del-menu 0.5s forwards;
+    animation-delay: 5s; 
+}
+
+.main_menu:hover { animation: add-menu 1s; }
+
+.main_menu_elem {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto 0 40px;
+    vertical-align: top;
+    width: 500px;
+}
+.main_menu_elem_text { transition: 0.2s;}
+
+
+
+.main_menu_elem_text:hover { background: rgba(0, 0, 0, 0.3); transition: 0.2s; }
+
+.main_menu_elem_text:hover ~ .sub_menu_routes { display: block; transition: 0.5s;}
+
+
+.sub_menu_routes {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 1;
+    width: 160px;
+    height: fit-content;
+    padding-bottom: 10px;
+    /*background: rgb(14,7,133);*/
+    background: #360b6ad0;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transition: 0.5s;
+}
+
+.sub_menu_routes:hover {
+    display: block;
+    transition: 0.5s;
+}
+
+.sub_menu_links {
+    display: block;
+    width: 160px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.sub_menu_links:hover { background: rgba(0, 0, 0, 0.3); transition: 0.2s; }
+
+.img_container {
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    text-align: center;
+}
+
+@keyframes shuffle {
+    20% {
+        transform: rotate(15deg)
+    }
+    40% {
+        transform: rotate(-15deg);
+    }
+    60% {
+        transform: rotate(-15deg);
+    }
+    80% {
+        transform: rotate(15deg);
+    }
+    100% {
+        transform: rotate(15deg);
+    }
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }
+
+.main_menu_images {
+    margin-top: 5px;
+    width: 70px;
+}
+
+.img_container:hover {
+    animation: shuffle 1s;
+}
+
+#school_link:hover{
+    animation: none;
+}
+#map {
+    position: absolute;
+    z-index: 0;
+    margin: auto;
+    width: 100%; 
+    height: 100%;
+}
+
+/* Статические маршруты */
+
+.static_routes_win {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.static_routes_win:target {
+    display: block;
+}
+.pop_up_close {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.pop_up_body {
+    color: white;
+    padding-top: 30px;
+    width: 1000px;
+    height: 700px;
+    /* background-image: linear-gradient(45deg, #874da2 0%, #c43a30 100%); */
+    background: rgb(14,7,133);
+    background: linear-gradient(90deg, rgba(14,7,133,0.9444152661064426) 2%,
+     rgba(147,20,39,0.9192051820728291) 40%, rgba(0,146,255,0.8575805322128851) 98%);
+    border-radius: 20px;
+    margin: calc(30% - 400px) auto auto;
+}
+
+.pop_up_title {
+    width: 100%;
+    margin: 0;
+    display: block;
+    font-size: 48px;
+    text-align: center;
+}
+.pop_up_all_routes {
+    box-sizing: border-box;
+    margin-top: 30px;
+    width: 100%;
+    height: 600px;
+    padding: 30px 10px;
+    overflow: auto;
+    border-radius: 8px;
+}
+
+.pop_up_route {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    width: 100%;
+    height: fit-content;
+    margin-top: 30px;
+    padding: 20px 30px;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.349);
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.pop_up_route:hover .pop_up_about_block {transform: scale(1.025); transition: 0.5s;}
+
+.pop_up_route:hover .pop_up_img_block {transform: scale(1.025); transition: 0.5s;}
+
+.pop_up_about_block {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: 10px 30px;
+    width: 600px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.219);
+    border-radius: 8px;
+    transition: 0.5s;
+}
+
+.pop_up_img_block {
+    display: inline-block;
+    vertical-align: top;
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.219);
+    border-radius: 8px;
+    text-align: center;
+    transition: 0.5s;
+}
+
+.about_route {
+    display: block;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+/* Динамические маршруты */
+.first_route_point {
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    padding: 10px 30px;
+}
+.new_point_route_text {
+    display: inline-block;
+    margin: auto 0;
+    width: fit-content;
+    font-size: 24px;
+    font-weight: 400;
+    color: black;
+    text-align: left;
+}
+
+.new_point_route_input {
+    font-size: 36px;
+    border-radius: 8px;
+    border: 0;
+    width: 500px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.205);
+    margin-left: 30px;
+    margin-right: 70px;
+}
+
+.btn_images {
+    margin-left: 10px;
+}
+
+.btn_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding: 20px 100px;
+}
+
+.btn_add_route {
+    display: flex;
+    flex-direction: row;
+    height: 55px;
+    box-sizing: border-box;
+    background-color: blueviolet;
+    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn_text {height: 100%; margin: 0; font-size: 20px; line-height: 100%; display: inline-block;}
+
+.route_params {
+    width: 100%;
+    height: 90px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    padding: 20px 5px;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+}
+
+.time_input {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    background: #ffffff59;
+    color: white;
+    border-radius: 8px;
+    border: 0;
+    font-size: 36px;
+}
+
+.search_routes_btn {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    text-align: center;
+    width: 150px;
+    height: 100%;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.24);
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+    border-radius: 8px;
+    margin-left: 50px;
+    line-height: 100%;
+    cursor: pointer;
+}
+
+.forminput {
+    box-sizing: border-box;
+    margin: 35px 100px 0 100px;
+    width: 600px;
+    height: 80px;
+    padding-left: 31px;
+
+    background: #ffffff5e;
+    border: 3px solid #ECEDF1;
+    border-radius: 16px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+}
+
+.reg_btn {
+    margin: 70px 100px 0 100px;
+    width: 600px;
+    height: 80px;
+
+    background: rgba(255, 255, 255, 0.459);
+    border-radius: 16px;
+    border-width: 0;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 42px;
+
+    color: #FFFFFF;
+
+    transition: 0.2s;
+    transition-timing-function: ease-in-out;
+
+    cursor: pointer;
+}
+
+.reg_btn:hover {
+    background: rgba(255, 255, 255, 0.267);
+
+    transition: 0.2s;
+    transition-timing-function: ease-in-out;
+}
