@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width">
@@ -17,13 +16,12 @@
     <script src="/static/script/POI.js" type="text/javascript" defer></script>
     <script src="/static/script/provider.js" type="text/javascript" defer></script>
 </head>
-
 <body>
     <div class="win">
         <div class="main_menu">
             <div class="img_container" id="school_link">
                 <a href="https://sch2098s.mskobr.ru/">
-                    <img class="main_menu_images" src="/static/images/school_logo.png" alt="логотип школы">
+                    <img id="school_image" class="main_menu_images" src="/static/images/school_logo.png" alt="логотип школы">
                 </a>
             </div>
             <div class="main_menu_elem"><h1>Карта-путеводитель по ВДНХ</h1></div>
@@ -47,16 +45,34 @@
             <div class="main_menu_elem" style="width:160px; height: 80px; vertical-align: middle">
                 <p class="main_menu_elem_text" style="line-height: 80px; margin: auto; font-size: 28px; font-weight:500; cursor: pointer; text-align: center">Избранное</p>
                 <div class="sub_menu_routes">
-                    <a class="sub_menu_links" href="#" style="font-size: 24px;">Избранное</a>
-                    <a class="sub_menu_links" href="#" style="font-size: 24px;">История</a>
+                    <a id="favorites_btn" class="sub_menu_links" href="#" style="font-size: 24px;">Избранное</a>
+                    <a id="history_btn" class="sub_menu_links" href="#" style="font-size: 24px;">История</a>
                 </div>
             </div>
-            <div class="img_container" style="margin-left: 60px">
-                <img id="login_btn" class="main_menu_images" src="/static/images/user_logo.png" alt="вход в аккаунт" style="width:40px; margin-top: 20px; cursor: pointer">
+            <div id="container_login_btn" class="img_container" style="margin-left: 60px">
+                <div class="small_pop_up">
+                    <form class="login_reg_form">
+                        {% if g.user %}
+                            <p class="login_text">Привет, {{ g.user.login }}</p>
+                            <button id="login_btn-btn" class="login_btn" type="button" style="visibility: hidden; display: none;">Войти</button>
+                            <button id="reg_btn-btn" class="login_btn" type="button" style="visibility: hidden; display: none;">Регистрация</button>
+                        {% else %}
+                            <button id="login_btn-btn" class="login_btn" type="button">Войти</button>
+                            <button id="reg_btn-btn" class="login_btn" type="button">Регистрация</button>
+                        {% endif %}
+                    </form>
+                </div>
+                <img id="login_btn-btn" class="main_menu_images" src="/static/images/user_logo.png" alt="вход в аккаунт" style="width:40px; margin-top: 20px; cursor: pointer">
             </div>
-            <div class="img_container">
-                <img id="settings_btn" class="main_menu_images" src="/static/images/settings_logo.png" alt="настройки" style="width:40px; margin-top: 20px; cursor: pointer">
-            </div>
+                <div id="container_btn_exit" class="img_container">
+                    {% if g.user %}
+                        <form class="exit_form" method="post">
+                            <button class="exit_btn" type="submit"><img id="settings_btn" class="main_menu_images" src="/static/images/logout.png" alt="настройки" style="width:40px; cursor: pointer"></button>
+                        </form>
+                    {% else %}
+                        <img id="settings_btn" class="main_menu_images" src="/static/images/logout.png" alt="настройки" style="width:40px; margin-top: 20px; cursor: pointer">
+                    {% endif %}
+                </div>
         </div>
         <div id="map"></div>
     </div>
@@ -165,17 +181,51 @@
             </div>
         </div>
     </div>
-    <div id="login_pop_up" class="static_routes_win">
+    <div id="reg_pop_up" class="static_routes_win">
         <div class="pop_up_body" style="width: 800px; height: 700px;">
             <h1 class="pop_up_title">Зарегистрируйтесь</h1>
-            <form method="post" class="reg_form" style="margin-top: 50px;">
-                <input class="forminput" type="text" name="login" placeholder="Придумайте логин">
-                <input class="forminput" type="password" name="password" placeholder="Придумайте пароль">
-                <input class="forminput" type="password" name="repeatpassword" placeholder="Повторите пароль">
+            <form class="reg_form" method="post" style="margin-top: 50px;">
+                <input id="login" class="forminput" type="text" name="login" placeholder="Придумайте логин">
+                <input id="password" class="forminput" type="password" name="password" placeholder="Придумайте пароль">
+                <input id="repeatpassword" class="forminput" type="password" name="repeatpassword" placeholder="Повторите пароль">
                 <button id="reg_btn" class="reg_btn" type="submit">Зарегистрироваться</button>
             </form>
         </div>
     </div>
-</body>
+    <div id="login_pop_up" class="static_routes_win">
+        <div class="pop_up_body" style="width: 800px; height: 700px;">
+            <h1 class="pop_up_title">Вход в аккаунт</h1>
+            <form class="reg_form" method="post" style="margin-top: 50px;">
+                <input id="login" class="forminput" type="text" name="login_entry" placeholder="Введите логин">
+                <input id="password" class="forminput" type="password" name="password_entry" placeholder="Введите пароль">
+                <button id="login_btn" class="reg_btn" type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
 
+    <div id="history_win" class="static_routes_win">
+        <div class="pop_up_body">
+            <h1 class="pop_up_title">История поиска</h1>
+            {% if option %}
+                <div class="pop_up_all_routes">
+                    {% for elem in option %}
+                        <div id="pop_up_route" class="pop_up_route">
+                            <div id="pop_up_about_block" class="pop_up_about_block" style="width: 100%; height: fit-content;">
+                                {% for rt1 in elem %}
+                                    {% if rt1 == elem[0] %}
+                                        <p id="about_route" class="about_route">Старт:  <u>{{ rt1 }}</u></p>
+                                    {% elif rt1 ==elem[-1] %}
+                                        <p id="about_route" class="about_route">Финиш:  <u>{{ rt1 }}</u></p>
+                                    {% else %}
+                                        <p id="about_route" class="about_route">Точка маршрута:  <u>{{ rt1 }}</u></p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
 </html>

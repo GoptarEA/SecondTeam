@@ -103,10 +103,93 @@ html, body {
 
 .img_container {
     margin-left: 20px;
+    position: relative;
     display: inline-block;
     vertical-align: top;
     height: 100%;
     text-align: center;
+}
+.small_pop_up {
+    position: absolute;
+    background-color: rgba(54, 143, 224, 0.87);
+    width: 400px;
+    height: 80px;
+    left: -180px;
+    top: 70px;
+    border-radius: 16px;
+    opacity: 0;
+    transition: 0.5s;
+    display: none;
+}
+.login_text {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    align-self: center;
+    text-align: center;
+    padding: 5px 5px;
+    margin: 0 auto;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.exit_btn {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.exit_form {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/*.img_container:hover :not(.small_pop_up):not(.login_btn):not(.login_reg_form):not(#school_image):not(.login_text):not(#settings_btn):not(#container_btn_exit):not(.exit_form):not(.exit_btn) {*/
+/*    animation: shuffle 1s;*/
+/*}*/
+
+#container_login_btn:hover :not(.small_pop_up):not(.login_btn):not(.login_reg_form):not(.login_text) {
+    animation: shuffle 1s;
+}
+
+.login_reg_form {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+
+.login_btn {
+    background-color: rgba(255, 255, 255, 0.199);
+    color: white;
+    border-radius: 8px;
+    border: 3px solid;
+    font-size: 20px;
+    font-weight: 400;
+    width: 150px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login_btn:hover {
+    background-color: rgba(255, 255, 255, 0.082);
+    transition: 0.2s;
+}
+
+.img_container:hover .small_pop_up {
+    transition: 0.5s;
+    opacity: 1;
+    display: block;
 }
 
 @keyframes shuffle {
@@ -144,10 +227,6 @@ html, body {
 .main_menu_images {
     margin-top: 5px;
     width: 70px;
-}
-
-.img_container:hover {
-    animation: shuffle 1s;
 }
 
 #school_link:hover{

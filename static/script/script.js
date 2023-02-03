@@ -146,8 +146,14 @@ document.getElementById("dyn_routes_win").addEventListener("click", (e) => {
 document.getElementById("time_routes").addEventListener("click", 
 () => document.getElementById("time_routes_win").style.display = "block");
 
-document.getElementById("login_btn").addEventListener("click", 
-() => document.getElementById("login_pop_up").style.display = "block");
+document.getElementById("history_btn").addEventListener("click",
+() => document.getElementById("history_win").style.display = "block");
+
+document.getElementById("history_win").addEventListener("click", (e) => {
+    if (e.target.id === "history_win") {
+        document.getElementById("history_win").style.display = "none";
+    }
+});
 
 document.getElementById("time_routes_win").addEventListener("click", (e) => {
     if (e.target.id === "time_routes_win") {
@@ -155,11 +161,18 @@ document.getElementById("time_routes_win").addEventListener("click", (e) => {
     }
 });
 
+document.getElementById("reg_pop_up").addEventListener("click", (e) => {
+    if (e.target.id === "reg_pop_up" || e.target.id === "reg_btn") {
+        document.getElementById("reg_pop_up").style.display = "none";
+    }
+});
+
 document.getElementById("login_pop_up").addEventListener("click", (e) => {
-    if (e.target.id === "login_pop_up" || e.target.id === "reg_btn") {
+    if (e.target.id === "login_pop_up" || e.target.id === "login_btn") {
         document.getElementById("login_pop_up").style.display = "none";
     }
 });
+
 
 document.getElementById("btn_add_images").addEventListener("click", () => {
     if (Array.from(document.getElementsByClassName("first_route_point")).slice(1, 5).find(elem => 
@@ -177,6 +190,11 @@ document.getElementById("btn_del_images").addEventListener("click", () => {
         }
 });
 
+document.getElementById("reg_btn-btn").addEventListener("click",
+    () => document.getElementById("reg_pop_up").style.display = "block");
+document.getElementById("login_btn-btn").addEventListener("click",
+    () => document.getElementById("login_pop_up").style.display = "block");
+
 
 function routeHtmlPointParse (htmlelem) {
     return [htmlelem.childNodes[1].innerHTML.split(": ")[1],
@@ -185,19 +203,21 @@ function routeHtmlPointParse (htmlelem) {
 
 $(function() {
     $("#btn_add_route").bind("click", function () {
+        var s = "";
         $.each(document.getElementsByClassName("new_point_route_input"), function (ind, elem) {
-            let point = $(elem).val();
-            $.getJSON($SCRIPT_ROOT + '/history', {
-            pnt: point
-            });
+            s += $(elem).val() + ",";
         });
+        $.getJSON($SCRIPT_ROOT + '/history', {
+            pnts: s
+            });
     });
     $("#add_to_favorites").bind("click", function () {
+        var s = "";
         $.each(document.getElementsByClassName("new_point_route_input"), function (ind, elem) {
-            let point = $(elem).val();
-            $.getJSON($SCRIPT_ROOT + '/favorites', {
-            pnt: point
-            });
+            s += $(elem).val() + ",";
         });
+        $.getJSON($SCRIPT_ROOT + '/favorites', {
+            pnts: s
+            });
     });
 });
