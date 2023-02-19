@@ -117,30 +117,30 @@
     <div id="dyn_routes_win" class="static_routes_win">
         <div class="pop_up_body">
             <h1 class="pop_up_title">Создать динамический маршрут</h1>
-            <div class="pop_up_all_routes" style="height: 500px;">
+            <div class="pop_up_all_routes" style="height: 500px;color:black;">
                 <div class="first_route_point">
                     <p class="new_point_route_text">Стартовая точка:</p>
-                    <input id="new_point_route_input" class="new_point_route_input" type="text">
+                    <input id="new_point_route_input" class="new_point_route_input" type="text" value="Павильон №1 Центральный">
                     <img id="btn_add_images" class="btn_images" src="/static/images/plus.png" alt="добавить точку" style="cursor: pointer">
                     <img id="btn_del_images" class="btn_images" src="/static/images/delete.png" alt="удалить точку" style="cursor: pointer">
                 </div>
-                <div id="another_point_1" class="first_route_point" style="display: none;">
+                <div id="another_point_1" class="first_route_point" style="display: none;color: black;">
                     <p class="new_point_route_text">Промежуточная точка:</p>
                     <input id="new_point_route_input" class="new_point_route_input" type="text">
                 </div>
-                <div id="another_point_2" class="first_route_point" style="display: none;">
+                <div id="another_point_2" class="first_route_point" style="display: none;color: black;">
                     <p class="new_point_route_text">Промежуточная точка:</p>
                     <input id="new_point_route_input" class="new_point_route_input" type="text">
                 </div>
-                <div id="another_point_3" class="first_route_point" style="display: none;">
+                <div id="another_point_3" class="first_route_point" style="display: none;color: black;">
                     <p class="new_point_route_text">Промежуточная точка:</p>
                     <input id="new_point_route_input" class="new_point_route_input" type="text">
                 </div>
-                <div id="another_point_4" class="first_route_point" style="display: none;">
+                <div id="another_point_4" class="first_route_point" style="display: none;color: black;">
                     <p class="new_point_route_text">Промежуточная точка:</p>
                     <input id="new_point_route_input" class="new_point_route_input" type="text">
                 </div>
-                <div id="another_point" class="first_route_point" style="margin-bottom: 10px">
+                <div id="another_point" class="first_route_point" style="margin-bottom: 10px; color: black;">
                     <p class="new_point_route_text">Финиш:</p>
                     <input id="new_point_route_input" class="new_point_route_input" type="text">
                 </div>
@@ -206,9 +206,33 @@
     <div id="history_win" class="static_routes_win">
         <div class="pop_up_body">
             <h1 class="pop_up_title">История поиска</h1>
-            {% if option %}
+            {% if history %}
                 <div class="pop_up_all_routes">
-                    {% for elem in option %}
+                    {% for elem in history %}
+                        <div id="pop_up_route" class="pop_up_route">
+                            <div id="pop_up_about_block" class="pop_up_about_block" style="width: 100%; height: fit-content;">
+                                {% for rt1 in elem %}
+                                    {% if rt1 == elem[0] %}
+                                        <p id="about_route" class="about_route">Старт:  <u>{{ rt1 }}</u></p>
+                                    {% elif rt1 ==elem[-1] %}
+                                        <p id="about_route" class="about_route">Финиш:  <u>{{ rt1 }}</u></p>
+                                    {% else %}
+                                        <p id="about_route" class="about_route">Точка маршрута:  <u>{{ rt1 }}</u></p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="favorites_win" class="static_routes_win">
+        <div class="pop_up_body">
+            <h1 class="pop_up_title">Избранное</h1>
+            {% if favorites %}
+                <div class="pop_up_all_routes">
+                    {% for elem in favorites %}
                         <div id="pop_up_route" class="pop_up_route">
                             <div id="pop_up_about_block" class="pop_up_about_block" style="width: 100%; height: fit-content;">
                                 {% for rt1 in elem %}

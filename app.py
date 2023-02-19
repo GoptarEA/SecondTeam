@@ -1,5 +1,3 @@
-import pprint
-
 from flask import Flask, render_template, session, g, jsonify, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -77,7 +75,7 @@ def index():
             if any([True if person.login == request.form.get('login') else False for person in Users.query.all()]):
                 flash(message="Пользователь с такой почтой уже существует", category="message")
             elif len(request.form.get('password')) <= 5:
-                flash(message="Пароль короче пяти символов!", category="message")
+                flash(message="Пароль короче шести символов!", category="message")
             elif request.form.get('password') != request.form.get('repeatpassword'):
                 flash(message="Введённые пароли не совпадают", category="message")
             else:
@@ -86,8 +84,8 @@ def index():
                 db.session.flush()
                 db.session.commit()
                 print("Регистрация прошла успешно... Вход выполнен")
-            user = [person for person in Users.query.all() if person.login == request.form.get('login')][0]
-            session['user_id'] = user.id
+                user = [person for person in Users.query.all() if person.login == request.form.get('login')][0]
+                session['user_id'] = user.id
             return redirect(url_for('index'))
         elif not session and request.form.get('login_entry'):
             session.pop('user_id', None)
@@ -102,11 +100,15 @@ def index():
                 session['user_id'] = user.id
             return redirect(url_for('index'))
     if session:
-        routes = [routes for routes in Routes.query.all() if g.user.id == routes.userId and routes.type == "history"]
-        routes = [rt.routePoints.split(",") for rt in routes]
+        history = [routes for routes in Routes.query.all() if g.user.id == routes.userId and routes.type == "history"]
+        history = [rt.routePoints.split(",") for rt in history]
+
+        favorites = [routes for routes in Routes.query.all() if g.user.id == routes.userId and routes.type == "favorites"]
+        favorites = [rt.routePoints.split(",") for rt in favorites]
     else:
-        routes = []
-    return render_template('index.html', option=routes)
+        history = []
+        favorites = []
+    return render_template('index.html', history=history, favorites=favorites)
 
 
 if __name__ == '__main__':

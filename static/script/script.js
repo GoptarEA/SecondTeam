@@ -155,6 +155,19 @@ document.getElementById("history_win").addEventListener("click", (e) => {
     }
 });
 
+
+document.getElementById("favorites_btn").addEventListener("click",
+() => document.getElementById("favorites_win").style.display = "block");
+
+document.getElementById("favorites_win").addEventListener("click", (e) => {
+    if (e.target.id === "favorites_win") {
+        document.getElementById("favorites_win").style.display = "none";
+    }
+});
+
+
+
+
 document.getElementById("time_routes_win").addEventListener("click", (e) => {
     if (e.target.id === "time_routes_win") {
         document.getElementById("time_routes_win").style.display = "none";
